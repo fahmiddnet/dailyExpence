@@ -1,54 +1,58 @@
+<?php session_start(); if(isset($_SESSION['id']) && isset($_SESSION['password'])){ ?>
+
 <?php
 include('Layout/header.php');
 include('db/connect.php');
 
 
-    $show_sql = "SELECT * FROM date_time WHERE id=(SELECT max(id) FROM date_time);";
-    $show_date_query = mysqli_query($conn,$show_sql);
-    // print_r($show_date_query);
-
 
     $show_catagory = "SELECT * FROM catagory_e";
     $show_catagory_query = mysqli_query($conn,$show_catagory);
     $show_all_catagory = mysqli_fetch_all($show_catagory_query,MYSQLI_ASSOC);
-    // print_r($show_all_catagory);
-
-    if (mysqli_num_rows($show_date_query) > 0) {
-        $show_all_post = mysqli_fetch_all($show_date_query, MYSQLI_ASSOC);
-        // print_r($show_all_post);
-      } else {
-        // Handle the case where no posts were found or there was an error
-        echo "No posts found or an error occurred.";
-      }
 ?>
 
 <section class="expeses-item">
     <div class="container">
         <div class="row">
             <div class="col-12">
+                <?php 
+                if(isset($_GET['msg'])){
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Infomation Insrted !!   Please Chack Here <a href="info.php" class="btn btn-info">Information</a>
+                            <button type="button" class="btn-close alert_btn_close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                }
+                if(isset($_GET['msgErr'])){
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Something Wrong
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                }
+                ?>
+
                 <form action="auth/expenceauth.php" method="POST" id="add_form">
-                    <div class="mb-3">
-                        <label for="date_time">Pick a Date</label>
-                        <input type="date" name="item_date" class="form-control">
+                    <div class="mb-3" id="datepicker">
+                        <label for="date_time" class="form-label">Pick a Date</label> <br>
+                        <input type="date" name="item_date" required>
                     </div>
                     <div class="expense-item" id="expense_box_item">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
-                                    <input type="text" name="item_title[]" class="form-control">
+                                    <input type="text" name="item_title[]" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="input-field">
                                     <label class="form-label">Amount</label>
-                                    <input type="number" name="item_amount[]" class="form-control">
+                                    <input type="number" name="item_amount[]" class="form-control" required>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="input-field">
                                     <label class="form-label">Catagory</label><br>
-                                    <select class="form-select" name="item_catagory[]"  aria-label="Default select example">
+                                    <select class="form-select" name="item_catagory[]"  aria-label="Default select example" required>
                                         <option selected>Open this select menu</option>
                                         <?php foreach($show_all_catagory as $item_catagory): ?>
                                         <option value="<?php echo $item_catagory['catagory_name'] ?>"><?php echo $item_catagory['catagory_name'] ?></option>
@@ -59,7 +63,13 @@ include('db/connect.php');
                             <div class="col-md-3">
                                 <div class="input-field">
                                     <label class="form-label">Note</label>
-                                    <input type="text" name="item_note[]" class="form-control">
+                                    <input type="text" name="item_note[]" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="input-field">
+                                    <label class="form-label">opt</label><br>
+                                    <a class="btn btn-danger">x</a>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +90,9 @@ include('db/connect.php');
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    $(function() {
+        $("#datepicker").datepicker();
+    })
     $(document).ready(function() {
         $("#add_new_item").click(function(e) {
             e.preventDefault();
@@ -97,7 +110,7 @@ include('db/connect.php');
                                     <input type="number" name="item_amount[]" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="input-field">
                                    <label class="form-label">Catagory</label><br>
                                     <select class="form-select" name="item_catagory[]" aria-label="Default select example">
@@ -114,16 +127,26 @@ include('db/connect.php');
                                     <input type="text" name="item_note[]" class="form-control">
                                 </div>
                             </div>
+                            <div class="col-md-1">
+                            <div class="input-field">
+                                    <label class="form-label">opt</label><br>
+                                    <a class="btn btn-danger remove_btn">x</a>
+                                </div>
+                            </div>
                         </div>
             `);
         });
 
         $(document).on('click','.remove_btn',function(e) {
             e.preventDefault();
-            let row_item = $(this).parent().parent();
+            let row_item = $(this).parent().parent().parent();
             $(row_item).remove();
         });
     })
 </script>
 </body>
 </html>
+
+<?php 
+    }else { header('location: index.php'); } ;
+?>
