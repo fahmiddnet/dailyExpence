@@ -16,10 +16,9 @@ if(isset($_POST['submit_exp_value'])){
         }
     }
     if(!empty($item_amount)) {
-        $amount_res = '';
+        $amount_res = "";
         foreach($item_amount as $item_amount_each){
-            $amount_res .= (string)$item_amount_each .",";
-            print_r($amount_res);
+            $amount_res .= $item_amount_each .",";
         }
     }
     if(!empty($item_catagory)) {
@@ -34,8 +33,8 @@ if(isset($_POST['submit_exp_value'])){
             $note_res .= $item_note_each .",";
             }
     }
-    // $sql = "INSERT INTO expenses (date, title, amount,catagory ,note) VALUES ('$newDate','$title_res','$amount_res','$catagory_res','$note_res')"; 
-    // $sql_query = mysqli_query($conn,$sql);
+    $sql = "INSERT INTO expenses (date, title, amount, catagory,note) VALUES ('$newDate','$title_res','$amount_res','$catagory_res','$note_res')"; 
+    $sql_query = mysqli_query($conn,$sql);
 
 
 
