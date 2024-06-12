@@ -18,3 +18,24 @@
     box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
     margin-bottom: 50px;
 }
+
+.profile-image-pic{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+
+
+.cardbody-color {
+    background-color: #ebf2fa69;
+}
+.btn-color{
+    background-color: #0e1c36;
+    color: #fff;
+}
+
+.text-dark a{
+    text-decoration: none;
+    color: dodgerblue;
+}

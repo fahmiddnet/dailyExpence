@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="catagory.php">Home</a>
+          <a class="nav-link active" aria-current="page" href="catagory.php">Create catagory</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="info.php">Inforamtion</a>
@@ -26,7 +26,7 @@
           <a class="nav-link" href="expenses.php">expenses</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-danger" href="logout.php">Logout</a>
+          <a class="nav-link" href="daily_expences_list.php">Daily expences list</a>
         </li>
       </ul>  
     </div>
@@ -34,5 +34,8 @@
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
+    <div class="logout mx-2">
+      <a class="btn btn-danger" href="logout.php">Logout</a>
+    </div>
   </div>
 </nav>

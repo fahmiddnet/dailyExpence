@@ -1,17 +1,27 @@
-<?php  include('../db/connect.php');
+<?php 
+session_start();
+include('../db/connect.php');
+
+
 
 // print_r($_POST['item_amount'][0]);
 $newDate = 
 $item_title = 
 $item_amount =
 $item_catagory = 
-$item_note = "";
+$item_note = 
+$user_id = "";
 
 $newDateErr = 
 $item_titleErr = 
 $item_amountErr =
 $item_catagoryErr = 
 $item_noteErr = "";
+
+if(isset($_SESSION['id'])){
+    $user_id = $_SESSION['id'];
+    // print_r($user_id);
+};
 
 if(isset($_POST['submit_exp_value'])){
     //VALIDATION DATE
@@ -69,7 +79,7 @@ if(isset($_POST['submit_exp_value'])){
     };
 
     if(empty($newDateErr) && empty($item_titleErr) && empty($item_amountErr) && empty($item_catagoryErr) && empty($item_noteErr) ){
-        $sql = "INSERT INTO expenses (date, title, amount, catagory,note) VALUES ('$newDate','$item_title','$item_amount','$item_catagory','$item_note')"; 
+        $sql = "INSERT INTO expenses (date, title, amount, catagory,note,user_id) VALUES ('$newDate','$item_title','$item_amount','$item_catagory','$item_note','$user_id')"; 
         $sql_query = mysqli_query($conn,$sql);
         if($sql_query){
             header('location: ../expenses.php?msg');
@@ -80,6 +90,5 @@ if(isset($_POST['submit_exp_value'])){
         header('location: ../expenses.php?msgdataBase');
     }
 }
-
 
 ?>

@@ -1,4 +1,4 @@
-<?php session_start(); if(isset($_SESSION['id']) && isset($_SESSION['password'])){ ?>
+<?php session_start(); if(isset($_SESSION['id']) && isset($_SESSION['user_password'])){ ?>
 
 <?php
 include('Layout/header.php');
@@ -53,7 +53,7 @@ include('db/connect.php');
                                 <div class="input-field">
                                     <label class="form-label">Catagory</label><br>
                                     <select class="form-select" name="item_catagory[]"  aria-label="Default select example" required>
-                                        <option selected>Open this select menu</option>
+                                        <option selected>Catagory</option>
                                         <?php foreach($show_all_catagory as $item_catagory): ?>
                                         <option value="<?php echo $item_catagory['catagory_name'] ?>"><?php echo $item_catagory['catagory_name'] ?></option>
                                         <?php endforeach; ?>
@@ -68,7 +68,7 @@ include('db/connect.php');
                             </div>
                             <div class="col-md-1">
                                 <div class="input-field">
-                                    <label class="form-label">opt</label><br>
+                                    <label class="form-label">Opt</label><br>
                                     <a class="btn btn-danger">x</a>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ include('db/connect.php');
                                 <div class="input-field">
                                    <label class="form-label">Catagory</label><br>
                                     <select class="form-select" name="item_catagory[]" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
+                                        <option selected>Catagory</option>
                                         <?php foreach($show_all_catagory as $item_catagory): ?>
                                         <option value="<?php echo $item_catagory['catagory_name'] ?>"><?php echo $item_catagory['catagory_name'] ?></option>
                                         <?php endforeach; ?>
@@ -129,7 +129,7 @@ include('db/connect.php');
                             </div>
                             <div class="col-md-1">
                             <div class="input-field">
-                                    <label class="form-label">opt</label><br>
+                                    <label class="form-label">Opt</label><br>
                                     <a class="btn btn-danger remove_btn">x</a>
                                 </div>
                             </div>

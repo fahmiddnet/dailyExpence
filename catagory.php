@@ -1,40 +1,44 @@
-<?php session_start(); if(isset($_SESSION['id']) && isset($_SESSION['password'])){ ?>
+<?php session_start(); if(isset($_SESSION['id']) && isset($_SESSION['user_password'])){ ?>
 
 <?php
 include('Layout/header.php');
 include('db/connect.php');
 
-
-    // $show_sql = "SELECT * FROM date_time WHERE id=(SELECT max(id) FROM date_time);";
-    // $show_date_query = mysqli_query($conn,$show_sql);
-    // // print_r($show_date_query);
-
-
-    // $show_catagory = "SELECT * FROM catagory_e";
-    // $show_catagory_query = mysqli_query($conn,$show_catagory);
-    // $show_all_catagory = mysqli_fetch_all($show_catagory_query,MYSQLI_ASSOC);
-    // // print_r($show_all_catagory);
-
-    // if (mysqli_num_rows($show_date_query) > 0) {
-    //     $show_all_post = mysqli_fetch_all($show_date_query, MYSQLI_ASSOC);
-    //     // print_r($show_all_post);
-    //   } else {
-    //     // Handle the case where no posts were found or there was an error
-    //     echo "No posts found or an error occurred.";
-    //   }
+if(isset($_GET['msg'])){
+    $succesCatagory= "success";
+}
+if(isset($_GET['cataoryErr'])){
+    $catagoryInfo_err = "Already stroed";
+}
 ?>
 
 <section class="expeses-item">
     <div class="container">
+        <?php 
+        if(!empty($succesCatagory)){
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Succesfully created  <strong>catagory</strong>. 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+        };
+        if(empty($catagoryInfo_err)){
+        } else{
+            echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                       Already have this  <strong>catagory</strong>!!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+        }
+        
+        ?>
         <div class="row">
             <div class="col-12">
                 <form action="activity.php" method="POST">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label class="form-label">Catagory</label>
-                                    <input type="text" name="item_catagory" class="form-control" required>
-                                    <div id="catagoryHelp" class="form-text">Please Write a catagory name.</div>
+                                    <label class="form-label fw-bold">Create new catagory</label>
+                                    <input type="text" name="item_catagory" class="form-control" placeholder="Write new catagory name" required>
+                                    <div id="catagoryHelp" class="form-text">Create name must relevent</div>
                                 </div>
                             </div>
                         </div>
