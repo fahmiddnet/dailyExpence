@@ -18,7 +18,7 @@ include('db/connect.php');
                 <?php 
                 if(isset($_GET['msg'])){
                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Infomation Insrted !!   Please Chack Here <a href="info.php" class="btn btn-info">Information</a>
+                            Infomation Insrted !!   Please Chack Here <a href="daily_expences_list.php" class="btn btn-info">Information</a>
                             <button type="button" class="btn-close alert_btn_close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>';
                 }
@@ -33,7 +33,7 @@ include('db/connect.php');
                 <form action="auth/expenceauth.php" method="POST" id="add_form">
                     <div class="mb-3" id="datepicker">
                         <label for="date_time" class="form-label">Pick a Date</label> <br>
-                        <input type="date" name="item_date" required>
+                        <input type="date" name="item_date" id="ShowDate" required>
                     </div>
                     <div class="expense-item" id="expense_box_item">
                         <div class="row">
@@ -90,9 +90,28 @@ include('db/connect.php');
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    $(function() {
-        $("#datepicker").datepicker();
-    })
+    $(document).ready(function() {
+
+        // Get today's date information
+        var TodayDate = new Date();
+        var Month = TodayDate.getMonth() + 1; // Months are zero-indexed (January is 0)
+        var Day = TodayDate.getDate();
+        var Year = TodayDate.getFullYear();
+
+        // Ensure two-digit format for month and day
+        if(Month < 10){
+            Month = '0' + Month.toString();  // Prepend leading zero if necessary
+        }
+        if(Day < 10 ){
+            Day = '0' + Day.toString(); // Prepend leading zero if necessary
+        }
+
+        // Format the maximum date string (YYYY-MM-DD)
+        var maxDate = Year + '-' + Month + '-' + Day;
+
+        // Set the 'max' attribute of the element with ID "ShowDate"
+        $("#ShowDate").attr('max',maxDate);
+    });
     $(document).ready(function() {
         $("#add_new_item").click(function(e) {
             e.preventDefault();

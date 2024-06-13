@@ -24,8 +24,8 @@
                 <table class="table table-striped table-hover">
                     <thead class="table-danger">
                         <tr>
-                            <th scope="col">Title</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Title</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Catagory</th>
                             <th scope="col">note</th>
@@ -33,16 +33,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($expenses_data as $exp_data_each): ?>
-                            <tr>
-                                <td><?php echo $exp_data_each['title'] ?></td>
-                                <td><?php echo $exp_data_each['date'] ?></td>
-                                <td><?php echo $exp_data_each['amount'] ?></td>
-                                <td><?php echo $exp_data_each['catagory'] ?></td>
-                                <td><?php echo $exp_data_each['note'] ?></td>
-                                <td><?php echo $exp_data_each['user_id'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <?php if(empty($expenses_data)){ 
+                            echo "<tr>
+                                    <td colspan='6'> There is no data ________ Please enter yor data here: <a href='expenses.php' class='btn btn-primary'>Expenses </a></td>
+                                  </tr>";
+                        } else { 
+                        ?>
+                           <?php foreach($expenses_data as $exp_data_each): ?>
+                                <tr>
+                                    <td><?php echo $exp_data_each['date'] ?></td>
+                                    <td><?php echo $exp_data_each['title'] ?></td>
+                                    <td><?php echo $exp_data_each['amount'] ?></td>
+                                    <td><?php echo $exp_data_each['catagory'] ?></td>
+                                    <td><?php echo $exp_data_each['note'] ?></td>
+                                    <td><?php echo $exp_data_each['user_id'] ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+
+                            <?php  } ?>
                     </tbody>
                 </table>
             </div>
@@ -53,8 +61,8 @@
 
 
 <?php 
-    $title_item = [];
-    $title_item = $exp_data_each['title'];
+    // $title_item = [];
+    // $title_item = $exp_data_each['title'];
     // $makeArray = [$title_item];
     // print_r($title_item);
 

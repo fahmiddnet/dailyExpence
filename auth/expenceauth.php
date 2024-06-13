@@ -5,11 +5,11 @@ include('../db/connect.php');
 
 
 // print_r($_POST['item_amount'][0]);
-$newDate = 
-$item_title = 
-$item_amount =
-$item_catagory = 
-$item_note = 
+$newDate = "";
+$item_title = [];
+$item_amount =[];
+$item_catagory = [];
+$item_note = [];
 $user_id = "";
 
 $newDateErr = 
