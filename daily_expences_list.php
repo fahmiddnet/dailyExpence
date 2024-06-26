@@ -42,10 +42,10 @@
                            <?php foreach($expenses_data as $exp_data_each): ?>
                                 <tr>
                                     <td><?php echo $exp_data_each['date'] ?></td>
-                                    <td><?php echo $exp_data_each['title'] ?></td>
-                                    <td><?php echo $exp_data_each['amount'] ?></td>
-                                    <td><?php echo $exp_data_each['catagory'] ?></td>
-                                    <td><?php echo $exp_data_each['note'] ?></td>
+                                    <td><?php echo ((strlen($exp_data_each['title']) > 200) ? substr($exp_data_each['title'],0,200).'...': $exp_data_each['title'] ); ?></td>
+				    <td><?php echo ((strlen($exp_data_each['amount']) > 200) ? substr($exp_data_each['amount'],0,200).'...': $exp_data_each['amount'] ); ?></td>
+                                    <td><?php echo ((strlen($exp_data_each['catagory']) > 200) ? substr($exp_data_each['catagory'],0,200).'...': $exp_data_each['catagory'] ); ?></td>
+				    <td><?php echo ((strlen($exp_data_each['note']) > 200) ? substr($exp_data_each['note'],0,200).'...': $exp_data_each['note'] ); ?></td>
                                     <td><?php echo $exp_data_each['user_id'] ?></td>
                                 </tr>
                             <?php endforeach; ?>

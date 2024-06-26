@@ -2,6 +2,12 @@
 
 if(isset($_GET['emptyname']) || isset($_GET['emptyUsername']) || isset($_GET['errPass'])){
     $emptyresult = "provide valid info";
+};
+
+if(isset($_GET['msgUser_taken'])){
+	$repeactUsername = "Database acces denite";
+} else {
+	$repeactUsername = '';
 }
 
 
@@ -18,7 +24,6 @@ if(isset($_GET['emptyname']) || isset($_GET['emptyUsername']) || isset($_GET['er
 </head>
 
 <body style="background-image:url('assets/image/blank.jpg'); background-repeat:no-repeat; background-position:50% 50%; background-size:cover;">
-
 <section class="login-area">
     <div class="container">
         <div class="col-md-6 offset-md-3">
@@ -37,10 +42,20 @@ if(isset($_GET['emptyname']) || isset($_GET['emptyUsername']) || isset($_GET['er
                 <div class="mb-2">
                     <label for="Inputname" class="form-label">User Name</label>
                     <input type="text" name="userName" class="form-control <?php echo $emptyresult ? 'is-invalid' : null ?>">
-                    <div class="form-text text-primary">User name must be unique.</div>
                     <div class="invalid-feedback">
                         Please provide valid info.
                     </div>
+			<?php  
+				if($repeactUsername){
+				echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  				<strong>Wait!</strong> You should use different user name.
+  				<button type="button" class="btn-close btn-small" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>';
+				} else {
+					echo '<div class="form-text text-primary">User name must be unique.</div>';
+					};
+
+ 			?>
                 </div>
                 <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Password</label>

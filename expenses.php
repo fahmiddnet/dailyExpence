@@ -30,7 +30,8 @@ include('db/connect.php');
                 }
                 ?>
 
-                <form action="auth/expenceauth.php" method="POST" id="add_form">
+                <!-- <form action="auth/expenceauth.php" method="POST" id="add_form"> -->
+                <form method="POST" id="add_form">
                     <div class="mb-3" id="datepicker">
                         <label for="date_time" class="form-label">Pick a Date</label> <br>
                         <input type="date" name="item_date" id="ShowDate" required>
@@ -53,7 +54,7 @@ include('db/connect.php');
                                 <div class="input-field">
                                     <label class="form-label">Catagory</label><br>
                                     <select class="form-select" name="item_catagory[]"  aria-label="Default select example" required>
-                                        <option selected>Catagory</option>
+                                        <option disabled selected value>Catagory</option>
                                         <?php foreach($show_all_catagory as $item_catagory): ?>
                                         <option value="<?php echo $item_catagory['catagory_name'] ?>"><?php echo $item_catagory['catagory_name'] ?></option>
                                         <?php endforeach; ?>
@@ -77,7 +78,7 @@ include('db/connect.php');
                             <a class="btn btn-dark" id="add_new_item">add new</a>
                         </div>
                     </div>
-                    <button type="submit" name="submit_exp_value" class="btn btn-primary mb-5">Submit</button>
+                    <button type="submit" name="submit_exp_value" class="btn btn-primary mb-5" id="add_btn">Submit</button>
                 </form>
             </div>
         </div>
@@ -161,6 +162,24 @@ include('db/connect.php');
             let row_item = $(this).parent().parent().parent();
             $(row_item).remove();
         });
+
+        //ajax request to insert all form data
+        $("#add_form").submit(function(e) {
+            e.preventDefault();
+            $("#add_btn").val('Adding...');
+            $.ajax({
+                url:'auth/expenceauth.php',
+                // url:'action_exp.php',
+                method: 'post',
+                data:$(this).serialize(),
+                success: function(response) {
+                   console.log(response);
+                    $("#add_btn").val('Add');
+                    $("#add_form")[0].reset();
+                    $(".append_item").remove();
+                }
+            })
+        })
     })
 </script>
 </body>
