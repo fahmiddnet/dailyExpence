@@ -1,6 +1,7 @@
 <?php 
     session_start(); 
     if(isset($_SESSION['id']) && isset($_SESSION['user_password'])){ 
+        $user_info = $_SESSION['id'];
 ?>
 
 <?php 
@@ -9,108 +10,102 @@
 ?>
 
 <?php 
-    $user_info = $_SESSION['id'];
-    $sql_data = "SELECT * FROM expenses WHERE user_id = '$user_info'";
-    $sql_query = mysqli_query($conn,$sql_data);
-    $expenses_data = mysqli_fetch_all($sql_query,MYSQLI_ASSOC);
-    // print_r($expenses_data);
+    $sql_data = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE user_id = '$user_info'  GROUP BY catagory";
+    $result = mysqli_query($conn,$sql_data); 
+    // Prepare data for Highchatts 
+    $data = array();
+    // print_r($result2);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            // print_r($row);
+            $data[] = array($row["catagory"], (int)$row["total_price"]);
+        }
+    };
+
+      mysqli_close($conn);
+      // Encode data to JSON format
+      $json_data = json_encode($data);
+    //   print_r($json_data);
+
 
 ?>
 
-<div class="table-area">
+
+<!-- START::Highchart area  -->
+<script src="js/highcharts.js"></script>
+<script src="js/exporting.js"></script>
+<script src="js/accessibility.js"></script>
+
+
+<div class="heighchart-area">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped table-hover">
-                    <thead class="table-danger">
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Catagory</th>
-                            <th scope="col">note</th>
-                            <th scope="col">Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(empty($expenses_data)){ 
-                            echo "<tr>
-                                    <td colspan='6'> There is no data ________ Please enter yor data here: <a href='expenses.php' class='btn btn-primary'>Expenses </a></td>
-                                  </tr>";
-                        } else { 
-                        ?>
-                           <?php foreach($expenses_data as $exp_data_each): ?>
-                                <tr>
-                                    <td><?php echo $exp_data_each['date'] ?></td>
-                                    <td><?php echo ((strlen($exp_data_each['title']) > 200) ? substr($exp_data_each['title'],0,200).'...': $exp_data_each['title'] ); ?></td>
-				    <td><?php echo ((strlen($exp_data_each['amount']) > 200) ? substr($exp_data_each['amount'],0,200).'...': $exp_data_each['amount'] ); ?></td>
-                                    <td><?php echo ((strlen($exp_data_each['catagory']) > 200) ? substr($exp_data_each['catagory'],0,200).'...': $exp_data_each['catagory'] ); ?></td>
-				    <td><?php echo ((strlen($exp_data_each['note']) > 200) ? substr($exp_data_each['note'],0,200).'...': $exp_data_each['note'] ); ?></td>
-                                    <td><?php echo $exp_data_each['user_id'] ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-
-                            <?php  } ?>
-                    </tbody>
-                </table>
+            <div class="col-6">
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
             </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+Highcharts.chart('container', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: 'Total Expenses'
+    },
+    credits:{
+        enabled:false
+    },
+    tooltip: {
+        valueSuffix: '%'
+    },
+    subtitle: {
+        text:
+        'Source:<a href="https://www.dnet.org.bd" target="_default">Idea</a>'
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                distance: 20
+            }, {
+                enabled: true,
+                distance: -40,
+                format: '{point.percentage:.1f}%',
+                style: {
+                    fontSize: '1em',
+                    textOutline: 'none',
+                    opacity: 0.7
+                },
+                filter: {
+                    operator: '>',
+                    property: 'percentage',
+                    value: 10
+                }
+            }]
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Expenses',
+        colorByPoint: true,
+            data: <?php echo $json_data; ?>
+    }]
+});
 
+  </script>
+
+<!-- END::Highchart area  -->
+<?php include('Layout/footer.php'); ?>
 
 <?php 
-    // $title_item = [];
-    // $title_item = $exp_data_each['title'];
-    // $makeArray = [$title_item];
-    // print_r($title_item);
 
-    // foreach($makeArray as $each_item){
-    //     print_r($each_item);
-    //     echo "<br>";
-    // }
-
-//     // Declare an array and initialize it 
-// $Array = array( "GFG1", "GFG2", "GFG3" ); 
-  
-// // Display the array elements 
-// print_r($Array); 
-  
-// Use implode() function to join 
-// comma in the array 
-// $List = implode(', ', $makeArray); 
-  
-// Display the comma separated list 
-    // print_r($List); 
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php 
     } else {
         header('location: index.php');
     }
