@@ -86,7 +86,7 @@
 }
 
 .highcharts-data-table tr:hover {
-    background: #f1f7ff;
+    background: #f1f7ff65;
 }
 
 input[type="number"] {

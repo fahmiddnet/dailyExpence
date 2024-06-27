@@ -145,6 +145,25 @@ Highcharts.chart('container2', {
     title: {
         text: 'Monthly Expenses'
     },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                distance: 20
+            }, {
+                enabled: true,
+                distance: -40,
+                format: '{point.percentage:.1f}%',
+                style: {
+                    fontSize: '0.7em',
+                    textOutline: 'none',
+                    opacity: 0.9
+                }
+            }]
+        }
+    },
     series: [{
         minPointSize: 10,
         innerSize: '20%',
@@ -193,6 +212,7 @@ Highcharts.chart('container3', {
     plotOptions: {
         series: {
             borderWidth: 0,
+            cursor: 'pointer',
             dataLabels: {
                 enabled: true,
                 format: '{point.y}$'
