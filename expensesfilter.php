@@ -58,9 +58,9 @@
 <div class="heighchart-area">
     <div class="container">
         <div class="row">
+
             <div class="col-md-6">
-                <form method="POST" class="d-flex justify-content-between align-items-center gap-3">
-                    <label class="btn btn-secondary disabled">Date</label>
+                <form method="POST">
                     <select class="form-select" name="taskOption" aria-label="Multiple select example">
                         <?php foreach(array_unique($dateString) as $date_month_item): ?>
                         <option <?php if($varOpt === $date_month_item) echo"selected";?>  
@@ -73,13 +73,36 @@
                         </option>
                         <?php endforeach; ?>
                     </select>
-                    <input type="submit" value="Filter" class="btn btn-info">
+                    <input type="submit" class="btn btn-primary mt-2">
                 </form>
 
                 <figure class="highcharts-figure">
                     <div id="container"></div>
                 </figure>
             </div>
+
+            <div class="col-md-6">
+                <form method="POST">
+                    <select class="form-select" name="taskOption" aria-label="Multiple select example">
+                        <?php foreach(array_unique($dateString) as $date_month_item): ?>
+                        <option <?php if($varOpt === $date_month_item) echo"selected";?>  
+                            value="<?php echo $date_month_item ?>">
+                                <!--Selected view item -->
+                            <?php
+                            $yrdata= strtotime($date_month_item);
+                            $date_month_value = date('l jS F Y', $yrdata);
+                            echo $date_month_value ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                    <input type="submit" class="btn btn-primary mt-2">
+                </form>
+
+                <figure class="highcharts-figure">
+                    <div id="container2"></div>
+                </figure>
+            </div>
+
         </div>
     </div>
 </div>
@@ -88,6 +111,52 @@
 
 <script type="text/javascript">
 Highcharts.chart('container', {
+    chart: {
+        type: 'pie'
+    },
+    title: {
+        text: '<?php 
+                            $yrdata = strtotime($varOpt);
+                            $date_month_value = date('l jS F Y', $yrdata);
+                            echo $date_month_value ?> Expenses'
+    },
+    credits:{
+        enabled:false
+    },
+    tooltip: {
+        valueSuffix: '💲'
+    },
+    subtitle: {
+        text:
+        'Source:<a href="https://www.dnet.org.bd" target="_default">Idea</a>'
+    },
+    plotOptions: {
+        series: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                distance: 20
+            }, {
+                enabled: true,
+                distance: -40,
+                format: '{point.percentage:.1f}%',
+                style: {
+                    fontSize: '1em',
+                    textOutline: 'none',
+                    opacity: 0.7
+                }
+            }]
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Amount',
+        colorByPoint: true,
+            data: <?php echo $json_data; ?>
+    }]
+});
+Highcharts.chart('container2', {
     chart: {
         type: 'pie'
     },
