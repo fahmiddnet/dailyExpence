@@ -32,11 +32,14 @@ include('db/connect.php');
 
                 <!-- <form action="auth/expenceauth.php" method="POST" id="add_form"> -->
                 <form method="POST" id="add_form">
-                    <div class="mb-3" id="datepicker">
+                    <div class="mb-3 d-flex gap-2" id="datepicker">
                         <label for="date_time" class="form-label">Pick a Date</label> <br>
                         <input type="date" name="item_date" id="ShowDate" required>
                     </div>
                     <div class="expense-item" id="expense_box_item">
+                        <div class="btn-add_new d-flex justify-content-end">
+                            <a class="btn btn-dark mb-4" id="add_new_item">add new</a>
+                        </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">
@@ -70,12 +73,9 @@ include('db/connect.php');
                             <div class="col-md-1">
                                 <div class="input-field">
                                     <label class="form-label">Opt</label><br>
-                                    <a class="btn btn-danger">x</a>
+                                    <a class="btn btn-danger disabled">x</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="btn-add_new d-flex justify-content-end">
-                            <a class="btn btn-dark" id="add_new_item">add new</a>
                         </div>
                     </div>
                     <button type="submit" name="submit_exp_value" class="btn btn-primary mb-5" id="add_btn">Submit</button>
@@ -116,7 +116,7 @@ include('db/connect.php');
     $(document).ready(function() {
         $("#add_new_item").click(function(e) {
             e.preventDefault();
-            $("#expense_box_item").prepend(`
+            $("#expense_box_item").append(`
                 <div class="row append_item">
                             <div class="col-md-3">
                                 <div class="mb-3">

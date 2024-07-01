@@ -31,23 +31,15 @@
       $json_data = json_encode($data);
     //   print_r($json_data);
 
-    $expenseAll_sql = "SELECT * FROM `expenses` WHERE user_id = '$user_info'";
-    $All_data_result = mysqli_query($conn,$expenseAll_sql); 
-    if (mysqli_num_rows($All_data_result) > 0) {
-        while($all_data_row = mysqli_fetch_assoc($All_data_result)) {
-                $dateString = $all_data_row['date'];
-                // print_r($dateString);
-                // Use DateTime object to parse the date and get month
-                $dateObject = new DateTime($dateString);
-                // print_r($dateObject);
-                $dbmonth = $dateObject->format('m');  // 'm' format code for month (01-12)
-                // echo "<br>";
-                // print_r($dbmonth);
-                $current_month = date('m');
-                if($dbmonth === $current_month) {
-                    $data2[] = array($all_data_row["catagory"], (int)$all_data_row["amount"]);
-                    $currentMontTotalAmount += $all_data_row["amount"];
-                };
+    $current_month = date('m');
+    $current_date_year = date('Y');
+    $expenses_sql_current_month = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$current_date_year' AND MONTH(date) = '$current_month' AND user_id = '$user_info'  GROUP BY catagory";
+    $current_month_result = mysqli_query($conn,$expenses_sql_current_month); 
+    if (mysqli_num_rows($current_month_result) > 0) {
+        while($current_month_row = mysqli_fetch_assoc($current_month_result)) {
+            // print_r($current_month_row);
+            $data2[] = array($current_month_row["catagory"], (int)$current_month_row["total_price"]);
+            $currentMontTotalAmount += $current_month_row["total_price"];
         }
     }
     $json_data2 = json_encode($data2);

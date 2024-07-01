@@ -9,16 +9,16 @@
     <title>Daily expenses </title>
 </head>
 <body style="background-color:#edeff0">
-<nav class="navbar navbar-expand-lg bg-info sticky-top mb-5" data-bs-theme="light">
+<nav class="navbar navbar-expand-lg sticky-top" style="background-color:#5161ce;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">EXPENSES</a>
+    <a class="nav-link" href="index.php">EXPENSES</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="catagory.php">Create catagory</a>
+          <a class="nav-link" aria-current="page" href="catagory.php">Create catagory</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="info.php">Inforamtion</a>

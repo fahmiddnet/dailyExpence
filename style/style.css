@@ -5,21 +5,40 @@
 }
 
 
-.expeses-item form{
+/* Nav bar  */
+.nav-link{
+    color: #fff;
+}
+.nav-link.active{
+    color:#e8fdfd;
+}
+
+.expeses-item{
+    height: 100%;
     background-color: rgb(210, 211, 212);
-    border: 4px solid rgb(128, 127, 127);
+}
+
+.expeses-item form{
+    height: 100vh;
     padding: 50px;
-    box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
+    background-color: rgb(220, 221, 223);
+    /* box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black; */
 }
 
-.expense-item{
-    background-color: rgb(206, 209, 212);
-    border: 4px solid rgb(128, 127, 127);
+.expense-item .row{
     padding: 10px;
-    box-shadow: -2px -2px #e0dede, -2px 0 #e0dede, 0 -2px #e0dede, -4px -4px white, -4px 0 white, 0 -4px white, 2px 2px #818181, 0 2px #818181, 2px 0 #818181,  2px -2px #e0dede, -2px 2px #818181, -4px 2px white, -4px 4px black, 4px 4px black, 4px 0 black, 0 4px black, 2px -4px white, 4px -4px black;
-    margin-bottom: 50px;
+    border: 2px solid rgb(238, 238, 238);
+    margin-bottom: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: rgb(178, 185, 202);
 }
-
+#datepicker{
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid rgb(238, 238, 238);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: rgb(178, 185, 202);
+}
 .profile-image-pic{
     height: 100px;
     width: 100px;
@@ -40,7 +59,17 @@
     text-decoration: none;
     color: dodgerblue;
 }
-
+.form-label{
+    padding: 8px;
+    background-color: #0e1c36;
+    color: #e8fdfd;
+}
+input[type="date"]{
+    padding: 6px;
+    font-size: 18px;
+    border-radius: 2px;
+    border: 2px solid #fff;
+}
 
 /* Highchart area  */
 .highcharts-root g.highcharts-exporting-group {
