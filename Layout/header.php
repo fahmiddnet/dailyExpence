@@ -30,7 +30,7 @@
           <a class="nav-link" href="daily_expences_list.php">Daily expences list</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="expensesall.php">Filter your data</a>
+          <a class="nav-link" href="expensesfilter.php">Filter your data</a>
         </li>
       </ul>  
     </div>
