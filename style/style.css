@@ -43,8 +43,8 @@
 
 
 /* Highchart area  */
-.highcharts-button-symbol{
-    /* display: none; */
+.highcharts-root g.highcharts-exporting-group {
+    display: none !important;
 }
 .highcharts-figure,
 .highcharts-data-table table {
@@ -92,5 +92,6 @@
 input[type="number"] {
     min-width: 50px;
 }
+
 
 

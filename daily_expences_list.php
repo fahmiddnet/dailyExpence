@@ -67,15 +67,22 @@
 
             <div class="col-md-6">
                 <figure class="highcharts-figure">
+                    <div id="container3"></div>
+                </figure>
+            </div>
+
+            <div class="col-md-6">
+                <figure class="highcharts-figure">
                     <div id="container"></div>
                 </figure>
             </div>
 
             <div class="col-md-6">
                 <figure class="highcharts-figure">
-                    <div id="container3"></div>
+                    <div id="container2"></div>
                 </figure>
             </div>
+
             <div class="col-md-6">
                 <figure class="highcharts-figure">
                     <div id="container4"></div>
@@ -84,11 +91,7 @@
 
             
 
-            <div class="col-md-6">
-                <figure class="highcharts-figure">
-                    <div id="container2"></div>
-                </figure>
-            </div>
+            
 
         </div>
     </div>
@@ -143,7 +146,7 @@ Highcharts.chart('container2', {
         enabled:false
     },
     title: {
-        text: 'Monthly Expenses'
+        text: 'Current Year Expenses'
     },
     plotOptions: {
         series: {

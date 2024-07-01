@@ -64,7 +64,8 @@
         START::FIlter by month 
         ===========================================*/
         $selected_month = date('m', strtotime($varOpt_month));
-        $selected_year = date('Y', strtotime($varOpt_year));
+        $selected_year = date('Y', strtotime($varOpt_month));
+        
 
         $filter_month = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$selected_year' AND MONTH(date) = '$selected_month' AND user_id = '$user_info' GROUP BY catagory";
         $filter_m_res = mysqli_query($conn,$filter_month); 
@@ -83,7 +84,8 @@
         /*=========================================
         START::FIlter by year 
         ===========================================*/
-        $filter_year = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$selected_year' AND user_id = '$user_info' GROUP BY catagory";
+        $selected_only_year = date('Y', strtotime($varOpt_year));
+        $filter_year = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$selected_only_year' AND user_id = '$user_info' GROUP BY catagory";
         $filter_y_res = mysqli_query($conn,$filter_year); 
         // print_r($filter_res);
         if (mysqli_num_rows($filter_y_res) > 0) {
