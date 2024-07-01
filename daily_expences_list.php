@@ -52,12 +52,31 @@
     }
     $json_data2 = json_encode($data2);
 
+
+
+    // Current year 
+
+    $currentyear = date('Y');
+    $sql_current_year = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$currentyear' AND user_id = '$user_info'  GROUP BY catagory";
+    $current_year_res = mysqli_query($conn,$sql_data); 
+    $Total_cost_for_current_year = 0;
+    $current_year = array();
+    if (mysqli_num_rows($current_year_res) > 0) {
+        while($current_year_row = mysqli_fetch_assoc($current_year_res)) {
+            // print_r($row);
+            $current_year[] = array($current_year_row["catagory"], (int)$current_year_row["total_price"]);
+            $Total_cost_for_current_year +=$current_year_row["total_price"];
+        }
+    };
+
+    $json_current_year = json_encode($current_year);
+
 ?>
 
 
 <!-- START::Highchart area  -->
 <script src="js/highcharts.js"></script>
-<script src="js/exporting.js"></script>
+<!-- <script src="js/exporting.js"></script> -->
 <script src="js/accessibility.js"></script>
 
 
@@ -141,12 +160,13 @@ Highcharts.chart('container', {
             data: <?php echo $json_data2; ?>
     }]
 });
+
 Highcharts.chart('container2', {
     credits:{
         enabled:false
     },
     title: {
-        text: 'Current Year Expenses'
+        text: 'Year: <?php echo $currentyear; ?> Expenses'
     },
     plotOptions: {
         series: {
@@ -167,15 +187,19 @@ Highcharts.chart('container2', {
             }]
         }
     },
+    tooltip: {
+        pointFormat: '{series.name}:  <b>{point.y}</b><br/>' +
+            'Total spend: <b><?php echo $Total_cost_for_current_year ?></b>'
+    },
     series: [{
         minPointSize: 10,
-        innerSize: '20%',
+        innerSize: '40%',
         zMin: 0,
         name: 'Amount',
         borderRadius: 5,
         type: 'pie',
         colorByPoint: true,
-            data: <?php echo $json_data; ?>
+            data: <?php echo $json_current_year; ?>
     }]
  });
 
