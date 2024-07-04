@@ -59,11 +59,11 @@
     text-decoration: none;
     color: dodgerblue;
 }
-.form-label{
+/* .form-label{
     padding: 8px;
     background-color: #0e1c36;
     color: #e8fdfd;
-}
+} */
 input[type="date"]{
     padding: 6px;
     font-size: 18px;
