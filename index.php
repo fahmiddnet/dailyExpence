@@ -50,6 +50,9 @@
                         <div class="invalid-feedback">
                             Please provide a valid info.
                         </div>
+                        <div  class="form-text mb-2 text-dark">
+                            <a href="forget_pass.php" class="fw-bold">Forget password</a>
+                        </div>
                     </div>
                     <div class="text-center"><button type="submit" name="login_submit" class="btn btn-primary px-5 mb-5 w-100">Log in</button> </div>
                     <div id="emailHelp" class="form-text text-center mb-5 text-dark">

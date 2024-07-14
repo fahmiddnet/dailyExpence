@@ -46,6 +46,22 @@
                 $varOpt_year = $dateString_value;
             };
         }
+        $sql_month_data = "SELECT DISTINCT Date_format(date, '%Y-%m') as time_MY FROM expenses WHERE user_id = '$user_info'";
+        $month_result = mysqli_query($conn,$sql_month_data); 
+        $date_month_String = array();
+        if (mysqli_num_rows($month_result) > 0) {
+            while($month_row = mysqli_fetch_assoc($month_result)) {
+                $date_month_String[] = $month_row['time_MY'];
+            }}
+
+        $sql_year_data = "SELECT DISTINCT Date_format(date, '%Y') as time_MY FROM expenses WHERE user_id = '$user_info'";
+        $year_result = mysqli_query($conn,$sql_year_data); 
+        $date_year_String = array();
+        if (mysqli_num_rows($year_result) > 0) {
+            while($year_row = mysqli_fetch_assoc($year_result)) {
+                $date_year_String[] = $year_row['time_MY'];
+            }}
+            // print_r($date_year_String);
         /*=========================================
         START::FIlter by day
         ===========================================*/
@@ -84,13 +100,15 @@
         /*=========================================
         START::FIlter by year 
         ===========================================*/
-        $selected_only_year = date('Y', strtotime($varOpt_year));
+        // $selected_only_year = date('Y', strtotime($varOpt_year));
+        $selected_only_year = $varOpt_year;
+        // print_r($selected_only_year);
         $filter_year = "SELECT catagory, SUM(amount) AS total_price FROM expenses WHERE YEAR(date) = '$selected_only_year' AND user_id = '$user_info' GROUP BY catagory";
         $filter_y_res = mysqli_query($conn,$filter_year); 
-        // print_r($filter_res);
+        // print_r($filter_y_res);
         if (mysqli_num_rows($filter_y_res) > 0) {
             while($filter_y_row = mysqli_fetch_assoc($filter_y_res)) {
-                // print_r($filter_row);
+                // print_r($filter_y_row);
                 $date_of_year[] = array($filter_y_row["catagory"], (int)$filter_y_row["total_price"]);
             }
         };
@@ -154,7 +172,7 @@
                 <form method="POST" class="d-flex justify-content-between align-items-center gap-3">
                     <label class="btn btn-secondary disabled">Month</label>
                     <select class="form-select" name="taskOption_month" aria-label="Multiple select example">
-                        <?php foreach(array_unique($dateString) as $date_month_item): ?>
+                        <?php foreach(array_unique($date_month_String) as $date_month_item): ?>
                         <option <?php if($varOpt_month === $date_month_item) echo"selected";?>  
                             value="<?php echo $date_month_item ?>">
                                 <!--Selected view item -->
@@ -180,14 +198,11 @@
                 <form method="POST" class="d-flex justify-content-between align-items-center gap-3">
                     <label class="btn btn-secondary disabled">Year</label>
                     <select class="form-select" name="taskOption_year" aria-label="Multiple select example">
-                        <?php foreach(array_unique($dateString) as $date_year_item): ?>
+                        <?php foreach(array_unique($date_year_String) as $date_year_item): ?>
                         <option <?php if($varOpt_year === $date_year_item) echo"selected";?>  
                             value="<?php echo $date_year_item ?>">
                                 <!--Selected view item -->
-                            <?php
-                            $data_year= strtotime($date_year_item);
-                            $date_year_value = date('Y', $data_year);
-                            echo $date_year_value ?>
+                            <?php echo $date_year_item?>
                         </option>
                         <?php endforeach; ?>
                     </select>
@@ -325,10 +340,7 @@ Highcharts.chart('container3', {
         type: 'pie'
     },
     title: {
-        text: '<?php 
-                            $year_d = strtotime($varOpt_year);
-                            $date_year_value = date('Y', $year_d);
-                            echo $date_year_value ?> Expenses'
+        text: '<?php echo $varOpt_year ?> Expenses'
     },
     credits:{
         enabled:false
